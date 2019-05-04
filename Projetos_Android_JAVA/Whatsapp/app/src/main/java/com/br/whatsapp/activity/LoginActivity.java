@@ -8,9 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.br.whatsapp.R;
+import com.br.whatsapp.helper.Preferencias;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
@@ -49,6 +51,14 @@ public class LoginActivity extends AppCompatActivity {
                 Random randomico = new Random();
                 int numeroRandimico = randomico.nextInt(9999 - 1000) + 1000;
                 String token = String.valueOf(numeroRandimico);  //Converter String para o que deseja
+
+                //salvar dados para validação
+                Preferencias preferencias = new Preferencias(LoginActivity.this);
+                preferencias.salvarPreferenciasUsuario(nomeUsuario, telefoneSemFormatacao, token);
+
+                HashMap<String, String> usuario = preferencias.getDataUsuario();
+
+                Log.i("TOKEN", "T:" + usuario.get("token"));
             }
         });
     }
