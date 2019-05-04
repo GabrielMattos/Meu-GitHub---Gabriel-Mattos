@@ -34,7 +34,7 @@ public class Preferencias {
     }
 
     //Cria uma lista com <Indice, Valor>
-    public HashMap<String, String> getDataUsuario() {
+    public HashMap<String , String> getDataUsuario() {
 
         HashMap<String, String> dadosUsuario = new HashMap<>();
 
