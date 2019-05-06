@@ -4,43 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimaryDark"
     android:padding="16dp"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.ActivityCadastroUsuario">
 
     <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="@dimen/Largura_Logo"
-        android:layout_height="@dimen/Altura_Logo"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/Description_logo"
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/usuario"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonValidar"
+    <EditText
+        android:id="@+id/editTextNome"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:text="Validar"
+        android:ems="10"
+        android:hint="@string/hint_Nome"
+        android:inputType="textEmailAddress"
         android:textColor="@color/textColorPrimary"
+        android:textColorHint="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
@@ -48,33 +46,36 @@
         android:textColorHint="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNome" />
 
     <EditText
         android:id="@+id/editTextSenha"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/hint_senha"
-        android:inputType="textPassword"
+        android:inputType="textEmailAddress"
         android:textColor="@color/textColorPrimary"
         android:textColorHint="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
-    <TextView
-        android:id="@+id/textViewCadastro"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/buttonCadastrar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:onClick="abrirCadastroUsuario"
-        android:text="@string/textview_Cadastre"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="18sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/textColorPrimary"
+        android:text="@string/btn_cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonValidar" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSenha" />
 
 </android.support.constraint.ConstraintLayout>
