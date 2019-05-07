@@ -14,14 +14,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.br.whatsapp.R;
+import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Permissao;
 import com.br.whatsapp.helper.Preferencias;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private DatabaseReference referenciaFirebase;
+
 
     /*private EditText editTextNome, editTextCodPais, editTextCodArea, editTextTelefone;
     private Button btnCadastrar;
@@ -31,6 +36,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        referenciaFirebase = ConfiguracaoFirebase.getFirebase();
+
+        referenciaFirebase.child("pontos").setValue("800");
 
     }
 
