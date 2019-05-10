@@ -6,4 +6,8 @@
     <string name="textview_Cadastre">Ainda não tem acesso?Cadastre-se</string>
     <string name="Description_logo">Logo</string>
     <string name="hint_Nome">Digite seu nome</string>
+    <string name="actionsSettings">Configurações</string>
+    <string name="actiosExit">Sair</string>
+    <string name="actionsPesquisa">Pesquisa</string>
+    <string name="actionsAdicionar">Adicionar</string>
 </resources>

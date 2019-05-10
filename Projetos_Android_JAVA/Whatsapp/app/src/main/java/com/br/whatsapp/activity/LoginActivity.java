@@ -69,10 +69,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     abrirTelaPrincipal();
-                    Toast.makeText(LoginActivity.this, "Sucesso no login", Toast.LENGTH_SHORT).show();
-
+                    finish();
+                    Toast.makeText(LoginActivity.this, "Sucesso no login", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Erro no login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Erro no login", Toast.LENGTH_LONG).show();
                 }
             }
         });

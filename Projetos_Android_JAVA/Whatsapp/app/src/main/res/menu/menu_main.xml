@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item   android:id="@+id/action_settings"
+            android:title="@string/actionsSettings"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
+
+    <item   android:id="@+id/action_sair"
+            android:title="@string/actiosExit"
+            android:orderInCategory="200"
+            app:showAsAction="never"/>
+
+    /*Primeiro os ícones da barra sao exibidos, depois os dos 3 pontos*/
+    <item   android:id="@+id/action_pesquisa"
+            android:title="@string/actionsPesquisa"
+            android:orderInCategory="300"
+            app:showAsAction="ifRoom"
+            android:icon="@android:drawable/ic_menu_search"/>
+
+    <item   android:id="@+id/action_adicionar"
+        android:title="@string/actionsAdicionar"
+        android:orderInCategory="400"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_add"/>
+
+</menu>

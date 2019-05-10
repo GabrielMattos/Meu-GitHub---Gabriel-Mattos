@@ -70,11 +70,11 @@ public class ActivityCadastroUsuario extends AppCompatActivity {
 
                     try{
                         throw task.getException();  //lançar excessao
-                    } catch (FirebaseAuthWeakPasswordException e) {
+                    } catch (FirebaseAuthWeakPasswordException e) { //SENHA
                         erroExcecao = "Digite uma senha mais forte, contendo mais caracteres e com letras e números.";
-                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                    } catch (FirebaseAuthInvalidCredentialsException e) { //EMAIL
                         erroExcecao = "O e-mail digitado é inválido, digite um novo e-mail.";
-                    } catch (FirebaseAuthUserCollisionException e) {
+                    } catch (FirebaseAuthUserCollisionException e) { //EMAIL SENDO UTILIZADO
                         erroExcecao = "Esse e-mail já está sendo usado.";
                     } catch (Exception e) {
                         erroExcecao = "Ao efetuar o cadastro.";
