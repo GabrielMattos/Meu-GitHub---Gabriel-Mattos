@@ -12,6 +12,24 @@
         android:id="@+id/toolbarPrincipal"
         layout="@layout/toolbar" />
 
+    <com.br.whatsapp.helper.SlidingTabLayout
+        android:id="@+id/STL_TABS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        tools:ignore="MissingConstraints">
+
+    </com.br.whatsapp.helper.SlidingTabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/VP_Pagina"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints">
+    </android.support.v4.view.ViewPager>
+
+
 
 </android.support.constraint.ConstraintLayout>
 
