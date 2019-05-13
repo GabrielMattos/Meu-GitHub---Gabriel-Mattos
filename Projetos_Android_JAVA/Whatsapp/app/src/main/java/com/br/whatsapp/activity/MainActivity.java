@@ -1,8 +1,11 @@
 package com.br.whatsapp.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.br.whatsapp.R;
@@ -71,12 +75,45 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_configuracoes:
                 return true;
+            case R.id.action_adicionar:
+                abrirCadastroContato();
+                return true;
             default:
             return super.onOptionsItemSelected(item);
         }
     }
 
-    public void deslogarUsuario() {
+    private void abrirCadastroContato() {
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(MainActivity.this);
+
+        //Configura a dialog
+        myAlertDialog.setTitle("Novo Contato");
+        myAlertDialog.setMessage("Digite o E-mail do usuário.");
+        myAlertDialog.setCancelable(false);
+
+        EditText myEditText = new EditText(MainActivity.this);
+        myAlertDialog.setView(myEditText);
+
+        myAlertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        myAlertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        myAlertDialog.create();
+        myAlertDialog.show();
+
+    }
+
+    private void deslogarUsuario() {
 
         usuarioAtenticacao.signOut();
         Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);

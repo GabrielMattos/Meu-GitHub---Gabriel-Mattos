@@ -11,7 +11,7 @@
 
     <include
         android:id="@+id/toolbarPrincipal"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"/>
 
     <com.br.whatsapp.helper.SlidingTabLayout
         android:id="@+id/STL_TABS"
@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         tools:ignore="MissingConstraints">
-
     </com.br.whatsapp.helper.SlidingTabLayout>
 
     <android.support.v4.view.ViewPager
@@ -29,8 +28,6 @@
         android:layout_weight="1"
         tools:ignore="MissingConstraints">
     </android.support.v4.view.ViewPager>
-
-
 
 </LinearLayout>
 

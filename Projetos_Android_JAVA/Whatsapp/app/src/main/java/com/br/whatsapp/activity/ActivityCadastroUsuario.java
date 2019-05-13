@@ -1,5 +1,6 @@
 package com.br.whatsapp.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.br.whatsapp.R;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
+import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,10 +61,10 @@ public class ActivityCadastroUsuario extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     Toast.makeText(ActivityCadastroUsuario.this, "Sucesso ao cadastrar usuario", Toast.LENGTH_LONG).show();
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
-                    usuario.setId(usuarioFirebase.getUid());
+                    String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                    usuario.setId(identificadorUsuario);
                     usuario.salvar();
-                    autenticacao.signOut();
-                    finish();
+                    abrirLoginUsuario();
 
                 } else {
 
@@ -85,6 +87,13 @@ public class ActivityCadastroUsuario extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void abrirLoginUsuario() {
+
+        Intent intent = new Intent(ActivityCadastroUsuario.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void findViews() {
