@@ -3,6 +3,7 @@ package com.br.whatsapp.activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -20,25 +21,32 @@ import android.widget.Toast;
 import com.br.whatsapp.R;
 import com.br.whatsapp.adapter.TabAdapter;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
+import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.SlidingTabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar myToolBar;
-    private FirebaseAuth usuarioAtenticacao;
+    private FirebaseAuth usuarioFirebase;
 
     private SlidingTabLayout mySlidingTabLayout;
     private ViewPager myViewPager;
+
+    private String identificadorContato;
+    private DatabaseReference referenciaFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        usuarioAtenticacao = ConfiguracaoFirebase.getFirebaseAntenticacao();
+        usuarioFirebase = ConfiguracaoFirebase.getFirebaseAntenticacao();
 
         myToolBar = findViewById(R.id.toolbarPrincipal);
         myToolBar.setTitle("WhatsApp");
@@ -92,13 +100,38 @@ public class MainActivity extends AppCompatActivity {
         myAlertDialog.setMessage("Digite o E-mail do usuário.");
         myAlertDialog.setCancelable(false);
 
-        EditText myEditText = new EditText(MainActivity.this);
+        final EditText myEditText = new EditText(MainActivity.this);
         myAlertDialog.setView(myEditText);
 
         myAlertDialog.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                String emailContato = myEditText.getText().toString();
 
+                if(emailContato.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Por favor, digite o E-mail do contato", Toast.LENGTH_SHORT).show();
+                } else {
+                    identificadorContato = Base64Custom.codificarBase64(emailContato);
+                    referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("usuarios").child(identificadorContato);
+                    referenciaFirebase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.getValue() != null) { //Caso tenha algum dado
+                                referenciaFirebase = ConfiguracaoFirebase.getFirebase();
+                                referenciaFirebase = referenciaFirebase.child("contatos").child()
+                            } else {
+                                Toast.makeText(MainActivity.this, "Usuário não possui cadastro", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    }); //Consulta única no FB, se o dado for alterado, o usuário não é informado
+
+
+                }
             }
         });
         myAlertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
