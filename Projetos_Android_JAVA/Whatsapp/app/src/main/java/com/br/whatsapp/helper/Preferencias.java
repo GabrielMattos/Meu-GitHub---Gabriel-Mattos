@@ -33,6 +33,11 @@ public class Preferencias {
         editor.commit();
     }
 
+    public String getIdentificador() {
+
+        return preferences.getString(CHAVE_IDENTIFICADOR, null);
+    }
+
     /*//Cria uma lista com <Indice, Valor>
     public HashMap<String , String> getDadosUsuario() {
 
