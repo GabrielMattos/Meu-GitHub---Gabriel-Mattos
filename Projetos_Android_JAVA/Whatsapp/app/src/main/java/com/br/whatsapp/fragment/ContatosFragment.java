@@ -1,6 +1,7 @@
 package com.br.whatsapp.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.br.whatsapp.R;
+import com.br.whatsapp.activity.ConversaActivity;
 import com.br.whatsapp.adapter.ContatoAdapter;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Preferencias;
@@ -100,6 +103,15 @@ public class ContatosFragment extends Fragment {
 
             }
         };
+
+        //Clicando em um contato da lista, abrir a Activity de conversa
+        meuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), ConversaActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return meuView;
     }

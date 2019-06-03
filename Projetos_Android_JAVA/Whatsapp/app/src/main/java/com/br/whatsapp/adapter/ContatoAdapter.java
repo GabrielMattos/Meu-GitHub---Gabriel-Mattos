@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import com.br.whatsapp.R;
 import com.br.whatsapp.model.Contato;
 
 import java.util.ArrayList;
@@ -15,7 +17,6 @@ public class ContatoAdapter extends ArrayAdapter<Contato> {
 
     private ArrayList<Contato> contatos;
     private Context context;
-
 
     public ContatoAdapter(@androidx.annotation.NonNull Context c, @androidx.annotation.NonNull ArrayList<Contato> objects) {
         super(c, 0, objects);
@@ -32,10 +33,58 @@ public class ContatoAdapter extends ArrayAdapter<Contato> {
         //verifica se a lista está vazia
         if(contatos != null) {
             //Inicializar objeto para montagem da view
-            LayoutInflater inflater = context.getSystemService()
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+
+            //monta view a partir do XML
+            view = inflater.inflate(R.layout.lista_contato, parent, false);
+
+            //recuperar elemento para exibição
+            TextView nomeContato = view.findViewById(R.id.textview_Nome);
+            TextView emailContato = view.findViewById(R.id.textview_Email)
+            Contato contato = contatos.get(position);
+            nomeContato.setText(contato.getNome());
+            emailContato.setText(contato.getEmail());
         }
 
         return view;
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
