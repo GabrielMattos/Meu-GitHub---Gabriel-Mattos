@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.ConversaActivity" android:parentActivityName=".activity.MainActivity">
-            <meta-data //Usado para compatibilidade
-                android:name="android.support.PARENT_ACTIVITY" android:value="com.br.whatsapp.activity.MainActivity"></meta-data>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.br.whatsapp.activity.MainActivity"></meta-data>
         </activity> //parentActivityName retorna para a Activity informada
         <activity android:name=".activity.ActivityCadastroUsuario" />
         <activity android:name=".activity.LoginActivity" />

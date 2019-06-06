@@ -104,16 +104,28 @@ public class ContatosFragment extends Fragment {
             }
         };
 
-        //Clicando em um contato da lista, abrir a Activity de conversa
         meuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), ConversaActivity.class);
-                startActivity(intent);
-            }
-        });
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        return meuView;
+                //Clicando em um contato da lista, abrir a Activity de conversa
+
+                        Intent intent = new Intent(getActivity(), ConversaActivity.class);
+
+
+                        //Recupera dados a serem passados
+                        Contato contato = contatos.get(position);
+
+                        //enviando dados para conversa activity
+                        intent.putExtra("nome", contato.getNome());
+                        intent.putExtra("email", contato.getEmail());
+
+
+                        startActivity(intent);
+                    }
+                });
+
+                return meuView;
     }
 
 }
