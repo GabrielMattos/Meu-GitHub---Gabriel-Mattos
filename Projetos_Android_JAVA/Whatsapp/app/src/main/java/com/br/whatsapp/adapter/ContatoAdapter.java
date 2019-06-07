@@ -18,15 +18,14 @@ public class ContatoAdapter extends ArrayAdapter<Contato> {
     private ArrayList<Contato> contatos;
     private Context context;
 
-    public ContatoAdapter(@androidx.annotation.NonNull Context c, @androidx.annotation.NonNull ArrayList<Contato> objects) {
+    public ContatoAdapter(Context c, ArrayList<Contato> objects) {
         super(c, 0, objects);
         this.contatos = objects;
         this.context = c;
     }
 
-    @androidx.annotation.NonNull
     @Override
-    public View getView(int position, @androidx.annotation.Nullable View convertView, @androidx.annotation.NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         //Criando do zero uma View
         View view = null;
 
@@ -40,7 +39,7 @@ public class ContatoAdapter extends ArrayAdapter<Contato> {
 
             //recuperar elemento para exibição
             TextView nomeContato = view.findViewById(R.id.textview_Nome);
-            TextView emailContato = view.findViewById(R.id.textview_Email)
+            TextView emailContato = view.findViewById(R.id.textview_Email);
             Contato contato = contatos.get(position);
             nomeContato.setText(contato.getNome());
             emailContato.setText(contato.getEmail());

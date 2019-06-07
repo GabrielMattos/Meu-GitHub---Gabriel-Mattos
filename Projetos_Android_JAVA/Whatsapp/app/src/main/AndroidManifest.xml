@@ -16,7 +16,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.br.whatsapp.activity.MainActivity"></meta-data>
-        </activity> //parentActivityName retorna para a Activity informada
+        </activity>
         <activity android:name=".activity.ActivityCadastroUsuario" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.MainActivity">
