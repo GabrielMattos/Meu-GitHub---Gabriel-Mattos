@@ -11,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.br.whatsapp.R;
+import com.br.whatsapp.config.ConfiguracaoFirebase;
+import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.Preferencias;
 import com.br.whatsapp.model.Mensagem;
+import com.google.firebase.database.DatabaseReference;
 
 public class ConversaActivity extends AppCompatActivity {
 
@@ -20,12 +23,15 @@ public class ConversaActivity extends AppCompatActivity {
 
     //dados do destinatario
     private String nomeUsuarioDestinatario;
+    private String idUsuarioDestinatario;
 
     //dados do remetente
     private String idUsuarioRemetente;
 
     private EditText ediTextMensagem;
     private ImageButton imageButtonEnviar;
+
+    private DatabaseReference referenciaFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,8 @@ public class ConversaActivity extends AppCompatActivity {
 
         if(extra != null) {
             nomeUsuarioDestinatario = extra.getString("nome");
+            String emailDestinatario = extra.getString("email");
+            idUsuarioDestinatario = Base64Custom.codificarBase64(emailDestinatario);
         }
 
         //Configura toolbar
@@ -61,18 +69,19 @@ public class ConversaActivity extends AppCompatActivity {
                     Mensagem mensagem = new Mensagem();
                     mensagem.setIdUsuario(idUsuarioRemetente);
                     mensagem.setMensagem(textoMensagem);
-
-                    salvarMensagem("id remetente", "id destinatario", "Mensagem");
+                    salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
+                    ediTextMensagem.setText("");
                 }
             }
         });
     }
 
-    private boolean salvarMensagem(String idRemetente, String idUsuario, Mensagem mensagem) {
+    private boolean salvarMensagem(String idRemetente, String idDestinatario, Mensagem mensagem) {
 
         try {
 
-            firebase
+            referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("mensagens");
+            referenciaFirebase.child(idRemetente).child(idDestinatario).push().setValue(mensagem);
 
             return true;
         } catch (Exception e) {
