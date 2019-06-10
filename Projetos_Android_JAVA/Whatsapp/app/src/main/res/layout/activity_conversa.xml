@@ -15,9 +15,12 @@
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></ListView>
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/toolbar_conversa"
+        android:layout_above="@id/linearlayout_mensagem"></ListView>
 
     <LinearLayout
+        android:id="@+id/linearlayout_mensagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cardview_light_background"

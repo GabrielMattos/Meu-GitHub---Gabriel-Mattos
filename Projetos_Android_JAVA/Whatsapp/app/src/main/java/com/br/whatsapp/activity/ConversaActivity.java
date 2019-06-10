@@ -1,13 +1,16 @@
 package com.br.whatsapp.activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.br.whatsapp.R;
@@ -15,7 +18,13 @@ import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.Preferencias;
 import com.br.whatsapp.model.Mensagem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.EventListener;
 
 public class ConversaActivity extends AppCompatActivity {
 
@@ -32,6 +41,13 @@ public class ConversaActivity extends AppCompatActivity {
     private ImageButton imageButtonEnviar;
 
     private DatabaseReference referenciaFirebase;
+
+    private ListView listViewConversa;
+
+    private ArrayList<String> mensagens;
+    private ArrayAdapter meuAdapter;
+
+    private ValueEventListener valueEventListenerMensagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,41 @@ public class ConversaActivity extends AppCompatActivity {
         toolbar.setTitle(nomeUsuarioDestinatario);
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
         setSupportActionBar(toolbar);
+
+        //Monta listview e adapter
+        mensagens = new ArrayList<>();
+        meuAdapter = new ArrayAdapter(ConversaActivity.this, android.R.layout.simple_list_item_1, mensagens);
+        listViewConversa.setAdapter(meuAdapter);
+
+        //recuperar mensagens no Firebase
+        referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("mensagens").child(idUsuarioRemetente).child(idUsuarioDestinatario);
+
+        //Cria listener para mensagens
+        valueEventListenerMensagem = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //Limpar mensagens
+                mensagens.clear();
+
+                //recuperar mensagens
+                for(DataSnapshot dados: dataSnapshot.getChildren()) {
+                    Mensagem mensagem = dados.getValue(Mensagem.class);
+                    mensagens.add(mensagem.getMensagem());
+                }
+
+                meuAdapter.notifyDataSetChanged(); //Notifica que os dados mudaram
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        referenciaFirebase.addValueEventListener(valueEventListenerMensagem);
+
+
 
         //enviar mensagem
         imageButtonEnviar.setOnClickListener(new View.OnClickListener() {
@@ -96,65 +147,13 @@ public void findViews() {
     toolbar = findViewById(R.id.toolbar_conversa);
     ediTextMensagem = findViewById(R.id.editText_mensagem);
     imageButtonEnviar = findViewById(R.id.imageButton_enviar);
+    listViewConversa = findViewById(R.id.listview_conversas);
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        referenciaFirebase.removeEventListener(valueEventListenerMensagem); //Economiza recursos, se o usuario nao estiver na activity conversa
+    }
 }
