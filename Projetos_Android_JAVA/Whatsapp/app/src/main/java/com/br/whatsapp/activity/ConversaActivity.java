@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.br.whatsapp.R;
+import com.br.whatsapp.adapter.MensagemAdapter;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.Preferencias;
@@ -44,8 +45,8 @@ public class ConversaActivity extends AppCompatActivity {
 
     private ListView listViewConversa;
 
-    private ArrayList<String> mensagens;
-    private ArrayAdapter meuAdapter;
+    private ArrayList<Mensagem> mensagens;
+    private ArrayAdapter<Mensagem> meuAdapter;
 
     private ValueEventListener valueEventListenerMensagem;
 
@@ -74,7 +75,9 @@ public class ConversaActivity extends AppCompatActivity {
 
         //Monta listview e adapter
         mensagens = new ArrayList<>();
-        meuAdapter = new ArrayAdapter(ConversaActivity.this, android.R.layout.simple_list_item_1, mensagens);
+        meuAdapter = new MensagemAdapter(ConversaActivity.this, mensagens);
+        //meuAdapter = new ArrayAdapter(ConversaActivity.this, android.R.layout.simple_list_item_1, mensagens);
+
         listViewConversa.setAdapter(meuAdapter);
 
         //recuperar mensagens no Firebase
@@ -91,7 +94,7 @@ public class ConversaActivity extends AppCompatActivity {
                 //recuperar mensagens
                 for(DataSnapshot dados: dataSnapshot.getChildren()) {
                     Mensagem mensagem = dados.getValue(Mensagem.class);
-                    mensagens.add(mensagem.getMensagem());
+                    mensagens.add(mensagem);
                 }
 
                 meuAdapter.notifyDataSetChanged(); //Notifica que os dados mudaram
