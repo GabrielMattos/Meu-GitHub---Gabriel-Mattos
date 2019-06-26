@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.br.whatsapp.R;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
+import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.Permissao;
 import com.br.whatsapp.helper.Preferencias;
 import com.br.whatsapp.model.Usuario;
@@ -68,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
+                    Preferencias preferencias = new Preferencias(LoginActivity.this);
+                    String identificadorUsuarioLogado = Base64Custom.codificarBase64(usuario.getEmail());
+                    preferencias.salvarDados(identificadorUsuarioLogado);
                     abrirTelaPrincipal();
                     finish();
                     Toast.makeText(LoginActivity.this, "Sucesso no login", Toast.LENGTH_LONG).show();

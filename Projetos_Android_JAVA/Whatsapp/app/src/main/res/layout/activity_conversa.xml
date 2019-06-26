@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ConversaActivity"
+    android:background="@drawable/bg"
+    >
+
+    <include android:id="@+id/toolbar_conversa" layout="@layout/toolbar"></include>
+
+    <ListView
+        android:id="@+id/listview_conversas"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/toolbar_conversa"
+        android:layout_above="@id/linearlayout_mensagem"></ListView>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_mensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/editText_mensagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Mensagem"
+            android:layout_weight="1"
+            android:textColor="@color/common_google_signin_btn_text_light_pressed"
+            android:textColorHint="@color/common_google_signin_btn_text_light_pressed"/>
+        
+        <ImageButton
+            android:id="@+id/imageButton_enviar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_arrow_left"
+            android:theme="@style/botaoPadrao"/>
+        
+    </LinearLayout>
+
+</RelativeLayout>

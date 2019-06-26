@@ -22,7 +22,10 @@ import com.br.whatsapp.R;
 import com.br.whatsapp.adapter.TabAdapter;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Base64Custom;
+import com.br.whatsapp.helper.Preferencias;
 import com.br.whatsapp.helper.SlidingTabLayout;
+import com.br.whatsapp.model.Contato;
+import com.br.whatsapp.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -117,10 +120,30 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.getValue() != null) { //Caso tenha algum dado
+
+                                //Recuperar dados do contato a ser adicionado
+                                Usuario usuarioContato = dataSnapshot.getValue(Usuario.class);
+
+                                //Recuperar identificador usuario logado(Base64)
+                                Preferencias preferencias = new Preferencias(MainActivity.this);
+                                String identificadorUsuarioLogado = preferencias.getIdentificador();
+
                                 referenciaFirebase = ConfiguracaoFirebase.getFirebase();
-                                referenciaFirebase = referenciaFirebase.child("contatos").child()
-                            } else {
-                                Toast.makeText(MainActivity.this, "Usuário não possui cadastro", Toast.LENGTH_SHORT).show();
+                                referenciaFirebase = referenciaFirebase.child("contatos")
+                                                                        .child(identificadorUsuarioLogado)
+                                                                        .child(identificadorContato);
+
+                                Contato contato = new Contato();
+                                contato.setIdentificadorUsuario(identificadorContato);
+                                contato.setEmail(usuarioContato.getEmail());
+                                contato.setNome(usuarioContato.getNome());
+
+                                referenciaFirebase.setValue(contato);
+
+                                Toast.makeText(MainActivity.this, "Usuário salvo com sucesso.", Toast.LENGTH_SHORT).show();
+
+                            } else { //Caso não exista o contato cadastrato no app
+                                Toast.makeText(MainActivity.this, "Usuário não possui cadastro no aplicativo.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -148,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void deslogarUsuario() {
 
-        usuarioAtenticacao.signOut();
+        usuarioFirebase.signOut();
         Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
         Toast.makeText(this, "Sucesso ao deslogar usuário", Toast.LENGTH_SHORT).show();
         startActivity(myIntent);

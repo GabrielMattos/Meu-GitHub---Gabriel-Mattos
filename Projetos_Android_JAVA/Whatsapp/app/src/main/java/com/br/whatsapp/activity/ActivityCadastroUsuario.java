@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.br.whatsapp.R;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Base64Custom;
+import com.br.whatsapp.helper.Preferencias;
 import com.br.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,6 +66,9 @@ public class ActivityCadastroUsuario extends AppCompatActivity {
                     usuario.setId(identificadorUsuario);
                     usuario.salvar();
                     abrirLoginUsuario();
+
+                    Preferencias preferencias = new Preferencias(ActivityCadastroUsuario.this);
+                    preferencias.salvarDados(identificadorUsuario);
 
                 } else {
 
