@@ -129,6 +129,7 @@ public class ConversaActivity extends AppCompatActivity {
 
                     //Salvamos mensagem para o remetente
 <<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
+<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
                     Boolean retornoMensagemRemetente = salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
                     if(!retornoMensagemRemetente) {
                         Toast.makeText(ConversaActivity.this, "Problema ao salvar mensagem, tente novamente.", Toast.LENGTH_LONG).show();
@@ -160,11 +161,16 @@ public class ConversaActivity extends AppCompatActivity {
                         }
                     }
 =======
+=======
+>>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
                     salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
 
                     //savamos mensagem para o destinatario
                     salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
 
+<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
+>>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
+=======
 >>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 
                     ediTextMensagem.setText("");
@@ -198,6 +204,7 @@ public class ConversaActivity extends AppCompatActivity {
     }
 
 <<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
+<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
     private Boolean salvarConversa(String idRemetente, String idDestinatario, Conversa conversa) {
 
             try {
@@ -211,6 +218,8 @@ public class ConversaActivity extends AppCompatActivity {
             }
     }
 
+=======
+>>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 =======
 >>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 
