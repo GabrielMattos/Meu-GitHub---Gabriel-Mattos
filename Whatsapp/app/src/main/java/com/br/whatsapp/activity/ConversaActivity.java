@@ -18,7 +18,6 @@ import com.br.whatsapp.adapter.MensagemAdapter;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.Preferencias;
-import com.br.whatsapp.model.Conversa;
 import com.br.whatsapp.model.Mensagem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -127,7 +126,9 @@ public class ConversaActivity extends AppCompatActivity {
                     Mensagem mensagem = new Mensagem();
                     mensagem.setIdUsuario(idUsuarioRemetente);
                     mensagem.setMensagem(textoMensagem);
+
                     //Salvamos mensagem para o remetente
+<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
                     Boolean retornoMensagemRemetente = salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
                     if(!retornoMensagemRemetente) {
                         Toast.makeText(ConversaActivity.this, "Problema ao salvar mensagem, tente novamente.", Toast.LENGTH_LONG).show();
@@ -158,8 +159,16 @@ public class ConversaActivity extends AppCompatActivity {
                             Toast.makeText(ConversaActivity.this, "Problema ao salvar conversa para o destinatário.", Toast.LENGTH_SHORT).show();
                         }
                     }
+=======
+                    salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
+
+                    //savamos mensagem para o destinatario
+                    salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+
+>>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 
                     ediTextMensagem.setText("");
+
                 }
             }
         });
@@ -188,6 +197,7 @@ public class ConversaActivity extends AppCompatActivity {
         listViewConversa = findViewById(R.id.listview_conversas);
     }
 
+<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
     private Boolean salvarConversa(String idRemetente, String idDestinatario, Conversa conversa) {
 
             try {
@@ -201,6 +211,8 @@ public class ConversaActivity extends AppCompatActivity {
             }
     }
 
+=======
+>>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 
     @Override
     protected void onStop() {
