@@ -26,7 +26,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
 
@@ -36,6 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogar;
     private Usuario usuario;
     private FirebaseAuth autenticacao;
+    private ValueEventListener valueEventListenerUsuario;
+    private DatabaseReference firebase;
+    private String identificadorUsuarioLogado;
 
 
     /*private EditText editTextNome, editTextCodPais, editTextCodArea, editTextTelefone;
@@ -69,9 +75,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    Preferencias preferencias = new Preferencias(LoginActivity.this);
-                    String identificadorUsuarioLogado = Base64Custom.codificarBase64(usuario.getEmail());
-                    preferencias.salvarDados(identificadorUsuarioLogado);
+                    identificadorUsuarioLogado = Base64Custom.codificarBase64(usuario.getEmail());
+
+                    firebase = ConfiguracaoFirebase.getFirebase().child("usuarios").child(identificadorUsuarioLogado);
+
+                    valueEventListenerUsuario = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Usuario usuarioRecuperado = dataSnapshot.getValue(Usuario.class);
+                            Preferencias preferencias = new Preferencias(LoginActivity.this);
+                            preferencias.salvarDados(identificadorUsuarioLogado, usuarioRecuperado.getNome());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+
+                    firebase.addListenerForSingleValueEvent(valueEventListenerUsuario); //apenas para uma unica consulta
+
                     abrirTelaPrincipal();
                     finish();
                     Toast.makeText(LoginActivity.this, "Sucesso no login", Toast.LENGTH_LONG).show();
