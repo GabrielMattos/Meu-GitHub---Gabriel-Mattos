@@ -10,14 +10,12 @@ public class Usuario {
 
     public Usuario() {
 
-
     }
 
     public void salvar() {
 
         DatabaseReference referenciaDatabase = ConfiguracaoFirebase.getFirebase();
         referenciaDatabase.child("usuarios").child(getId()).setValue(this);
-
     }
 
     @Exclude //Com isso não salva essa informaçao no banco de dados do Firebase

@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
 public class ActivityCadastroUsuario extends AppCompatActivity {
 
@@ -62,11 +61,11 @@ public class ActivityCadastroUsuario extends AppCompatActivity {
 
                 if(task.isSuccessful()) {
                     Toast.makeText(ActivityCadastroUsuario.this, "Sucesso ao cadastrar usuario", Toast.LENGTH_LONG).show();
-                    FirebaseUser usuarioFirebase = task.getResult().getUser();
                     String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
                     usuario.setId(identificadorUsuario);
                     usuario.salvar();
                     abrirLoginUsuario();
+
                     Preferencias preferencias = new Preferencias(ActivityCadastroUsuario.this);
                     preferencias.salvarDados(identificadorUsuario, usuario.getNome());
 

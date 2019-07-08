@@ -39,10 +39,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogar;
     private Usuario usuario;
     private FirebaseAuth autenticacao;
-    private ValueEventListener valueEventListenerUsuario;
-    private DatabaseReference firebase;
-    private String identificadorUsuarioLogado;
 
+    private DatabaseReference referenciaFirebase;
+    private ValueEventListener valueEventListenerUsuario;
+
+    private String identificadorUsuarioLogado;
 
     /*private EditText editTextNome, editTextCodPais, editTextCodArea, editTextTelefone;
     private Button btnCadastrar;
@@ -72,17 +73,25 @@ public class LoginActivity extends AppCompatActivity {
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAntenticacao();
         autenticacao.signInWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()) {
+
                     identificadorUsuarioLogado = Base64Custom.codificarBase64(usuario.getEmail());
+                    referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("usuarios").child(identificadorUsuarioLogado);
+                    Preferencias preferencias = new Preferencias(LoginActivity.this);
+                    String usuarioRecuperado = usuario.getNome();
+                    preferencias.salvarDados(identificadorUsuarioLogado, usuarioRecuperado);
 
-                    firebase = ConfiguracaoFirebase.getFirebase().child("usuarios").child(identificadorUsuarioLogado);
-
+                    /* NÃO FUNCIONOU DE JEITO NENHUM
                     valueEventListenerUsuario = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                             Usuario usuarioRecuperado = dataSnapshot.getValue(Usuario.class);
+
                             Preferencias preferencias = new Preferencias(LoginActivity.this);
                             preferencias.salvarDados(identificadorUsuarioLogado, usuarioRecuperado.getNome());
                         }
@@ -92,11 +101,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     };
-
-                    firebase.addListenerForSingleValueEvent(valueEventListenerUsuario); //apenas para uma unica consulta
+                    referenciaFirebase.addListenerForSingleValueEvent(valueEventListenerUsuario);*/
 
                     abrirTelaPrincipal();
-                    finish();
                     Toast.makeText(LoginActivity.this, "Sucesso no login", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "Erro no login", Toast.LENGTH_LONG).show();
@@ -111,7 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         if(autenticacao.getCurrentUser() != null) {
             abrirTelaPrincipal();
         }
-
     }
 
     private void abrirTelaPrincipal() {

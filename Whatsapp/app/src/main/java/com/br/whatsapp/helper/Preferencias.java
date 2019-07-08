@@ -15,7 +15,6 @@ public class Preferencias {
 
     private final String CHAVE_IDENTIFICADOR = "identificadorUsuarioLogado";
     private final String CHAVE_NOME = "nomeUsuarioLogado";
-
     //private final String CHAVE_TELEFONE = "telefone";
     //private final String CHAVE_TOKEN = "token";
 
@@ -24,13 +23,13 @@ public class Preferencias {
         contexto = contextoParametro;
         preferences = contexto.getSharedPreferences(NOME_ARQUIVO, MODE);
         editor = preferences.edit();
-
     }
 
-    public void salvarDados(String identificadorUsuario, String nomeUsuario) {
+    public void salvarDados(String identificadorUsuario,String nomeUsuario) {
 
         editor.putString(CHAVE_IDENTIFICADOR, identificadorUsuario);
         editor.putString(CHAVE_NOME, nomeUsuario);
+
         //editor.putString(CHAVE_TELEFONE, telefone);
        // editor.putString(CHAVE_TOKEN, token);
         editor.commit();

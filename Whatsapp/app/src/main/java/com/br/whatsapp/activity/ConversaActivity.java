@@ -18,6 +18,7 @@ import com.br.whatsapp.adapter.MensagemAdapter;
 import com.br.whatsapp.config.ConfiguracaoFirebase;
 import com.br.whatsapp.helper.Base64Custom;
 import com.br.whatsapp.helper.Preferencias;
+import com.br.whatsapp.model.Conversa;
 import com.br.whatsapp.model.Mensagem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +38,7 @@ public class ConversaActivity extends AppCompatActivity {
 
     //dados do remetente
     private String idUsuarioRemetente;
-    private String nomeUsuarioRemetente;
+    private  String nomeUsuarioRemetente;
 
     private EditText ediTextMensagem;
     private ImageButton imageButtonEnviar;
@@ -58,7 +59,7 @@ public class ConversaActivity extends AppCompatActivity {
 
         findViews();
 
-        //dados do usuario logado
+        //dados usuario logado
         Preferencias preferencias = new Preferencias(ConversaActivity.this);
         idUsuarioRemetente = preferencias.getIdentificador();
         nomeUsuarioRemetente = preferencias.getNome();
@@ -111,8 +112,6 @@ public class ConversaActivity extends AppCompatActivity {
 
         referenciaFirebase.addValueEventListener(valueEventListenerMensagem);
 
-
-
         //enviar mensagem
         imageButtonEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,15 +125,13 @@ public class ConversaActivity extends AppCompatActivity {
                     Mensagem mensagem = new Mensagem();
                     mensagem.setIdUsuario(idUsuarioRemetente);
                     mensagem.setMensagem(textoMensagem);
-
                     //Salvamos mensagem para o remetente
-<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
-<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
                     Boolean retornoMensagemRemetente = salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
+
                     if(!retornoMensagemRemetente) {
                         Toast.makeText(ConversaActivity.this, "Problema ao salvar mensagem, tente novamente.", Toast.LENGTH_LONG).show();
                     } else {
-                        //salvamos mensagem para o destinatario
+                        //savamos mensagem para o destinatario
                         Boolean retornoMensagemDestinatario = salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
                         if(!retornoMensagemDestinatario) {
                             Toast.makeText(ConversaActivity.this, "Problema ao enviar mensagem para o destinatario, tente novamente.", Toast.LENGTH_SHORT).show();
@@ -155,26 +152,16 @@ public class ConversaActivity extends AppCompatActivity {
                         conversaDestinatario.setIdUsuario(idUsuarioRemetente);
                         conversaDestinatario.setNome(nomeUsuarioRemetente);
                         conversaDestinatario.setMensagem(textoMensagem);
+                        salvarConversa(idUsuarioDestinatario, idUsuarioRemetente, conversaDestinatario);
+
                         Boolean retornoConversaDestinatario = salvarConversa(idUsuarioDestinatario, idUsuarioRemetente, conversaDestinatario);
                         if(!retornoConversaDestinatario) {
-                            Toast.makeText(ConversaActivity.this, "Problema ao salvar conversa para o destinatário.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ConversaActivity.this, "Problema ao salvar conversa para o destinatario, tente novamente.", Toast.LENGTH_SHORT).show();
                         }
+
                     }
-=======
-=======
->>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
-                    salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
-
-                    //savamos mensagem para o destinatario
-                    salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
-
-<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
->>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
-=======
->>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 
                     ediTextMensagem.setText("");
-
                 }
             }
         });
@@ -194,7 +181,6 @@ public class ConversaActivity extends AppCompatActivity {
         }
     }
 
-
     public void findViews() {
 
         toolbar = findViewById(R.id.toolbar_conversa);
@@ -203,29 +189,61 @@ public class ConversaActivity extends AppCompatActivity {
         listViewConversa = findViewById(R.id.listview_conversas);
     }
 
-<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
-<<<<<<< HEAD:Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
     private Boolean salvarConversa(String idRemetente, String idDestinatario, Conversa conversa) {
 
-            try {
-                referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("conversas");
-                referenciaFirebase.child(idUsuarioRemetente).child(idUsuarioDestinatario).setValue(conversa);
-                return true;
+        try {
+            referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("conversas");
+            referenciaFirebase.child(idUsuarioRemetente).child(idUsuarioDestinatario).setValue(conversa);
+            return true;
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-
-=======
->>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
-=======
->>>>>>> parent of d23ddbc... Salvando conversa:Projetos_Android_JAVA/Whatsapp/app/src/main/java/com/br/whatsapp/activity/ConversaActivity.java
 
     @Override
     protected void onStop() {
         super.onStop();
         referenciaFirebase.removeEventListener(valueEventListenerMensagem); //Economiza recursos, se o usuario nao estiver na activity conversa
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
