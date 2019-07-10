@@ -158,7 +158,6 @@ public class ConversaActivity extends AppCompatActivity {
                         if(!retornoConversaDestinatario) {
                             Toast.makeText(ConversaActivity.this, "Problema ao salvar conversa para o destinatario, tente novamente.", Toast.LENGTH_SHORT).show();
                         }
-
                     }
 
                     ediTextMensagem.setText("");
@@ -170,11 +169,10 @@ public class ConversaActivity extends AppCompatActivity {
     private boolean salvarMensagem(String idRemetente, String idDestinatario, Mensagem mensagem) {
 
         try {
-
             referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("mensagens");
             referenciaFirebase.child(idRemetente).child(idDestinatario).push().setValue(mensagem);
-
             return true;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

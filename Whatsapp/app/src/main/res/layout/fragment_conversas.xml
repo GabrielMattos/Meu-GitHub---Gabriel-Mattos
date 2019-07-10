@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ConversasFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Conversas"
-        android:textSize="30sp" />
+    <ListView
+        android:id="@+id/listViewConversasID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top"
+        android:divider="@color/cinza"
+        android:dividerHeight="1dp"/>
+
 </FrameLayout>

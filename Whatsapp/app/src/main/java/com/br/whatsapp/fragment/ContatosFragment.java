@@ -59,8 +59,7 @@ public class ContatosFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         contatos = new ArrayList<>();
 
@@ -109,23 +108,49 @@ public class ContatosFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Clicando em um contato da lista, abrir a Activity de conversa
+                Intent intent = new Intent(getActivity(), ConversaActivity.class);
 
-                        Intent intent = new Intent(getActivity(), ConversaActivity.class);
+                //Recupera dados a serem passados
+                Contato contato = contatos.get(position);
 
+                //enviando dados para conversa activity
+                intent.putExtra("nome", contato.getNome());
+                intent.putExtra("email", contato.getEmail());
 
-                        //Recupera dados a serem passados
-                        Contato contato = contatos.get(position);
+                startActivity(intent);
+            }
+        });
 
-                        //enviando dados para conversa activity
-                        intent.putExtra("nome", contato.getNome());
-                        intent.putExtra("email", contato.getEmail());
-
-
-                        startActivity(intent);
-                    }
-                });
-
-                return meuView;
+        return meuView;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
